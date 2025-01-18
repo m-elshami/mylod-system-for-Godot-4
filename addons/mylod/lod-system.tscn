@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbr0g4swpj2y2"]
+
+[ext_resource type="Script" uid="uid://cijynyqgycxu7" path="res://addons/mylod/mylod.gd" id="1_58v2r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_58v2r"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lxsu8"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_tjm80"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7nd2m"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_58v2r"]
+
+[node name="simple-lod-test" type="Node3D"]
+
+[node name="lods" type="Node3D" parent="."]
+script = ExtResource("1_58v2r")
+
+[node name="LOD0" type="MeshInstance3D" parent="lods"]
+visibility_range_end = 9.0
+mesh = SubResource("CylinderMesh_58v2r")
+
+[node name="LOD1" type="MeshInstance3D" parent="lods"]
+transform = Transform3D(0.735, 0, 0, 0, 0.735, 0, 0, 0, 0.735, 0, 0, 0)
+visibility_range_begin = 9.0
+visibility_range_end = 28.0
+mesh = SubResource("CapsuleMesh_lxsu8")
+
+[node name="LOD2" type="MeshInstance3D" parent="lods"]
+transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, 0, 0, 0)
+visibility_range_begin = 28.0
+visibility_range_end = 85.0
+mesh = SubResource("TorusMesh_tjm80")
+
+[node name="LOD3" type="MeshInstance3D" parent="lods"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0)
+visibility_range_begin = 85.0
+mesh = SubResource("SphereMesh_7nd2m")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_58v2r")
